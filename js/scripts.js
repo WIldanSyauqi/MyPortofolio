@@ -17,21 +17,28 @@ document.addEventListener("DOMContentLoaded", () => {
 		updateNavbar();
 
 		if (window.innerWidth < 992) {
-			const currentScrollY = window.scrollY;
-			const isScrollingDown = currentScrollY > previousScrollY;
-
-			if (isScrollingDown && currentScrollY > navbar.offsetHeight) {
-				navbar.classList.add("navbar-hidden");
-				if (navbarMenu?.classList.contains("show")) {
-					bootstrap.Collapse.getOrCreateInstance(navbarMenu).hide();
+			navbar.classList.remove("navbar-hidden");
+			if (navbarMenu?.classList.contains("show")) {
+				const collapse = bootstrap.Collapse.getOrCreateInstance(navbarMenu);
+				if (window.scrollY > navbar.offsetHeight + 20) {
+					collapse.hide();
 				}
-			} else if (!isScrollingDown) {
-				navbar.classList.remove("navbar-hidden");
 			}
-
-			previousScrollY = currentScrollY;
+			previousScrollY = window.scrollY;
+			scrollTicking = false;
+			return;
 		}
 
+		const currentScrollY = window.scrollY;
+		const isScrollingDown = currentScrollY > previousScrollY;
+
+		if (isScrollingDown && currentScrollY > navbar.offsetHeight) {
+			navbar.classList.add("navbar-hidden");
+		} else if (!isScrollingDown) {
+			navbar.classList.remove("navbar-hidden");
+		}
+
+		previousScrollY = currentScrollY;
 		scrollTicking = false;
 	};
 
