@@ -138,17 +138,28 @@
 
   .navbar-collapse {
     margin-top: 1rem;
-    padding: 0.5rem 0;
+    padding: 0.75rem;
     border-top: 1px solid var(--bs-gray-200);
+    background: rgba(255, 255, 255, 0.96);
+    border-radius: 1rem;
+    box-shadow: 0 0.75rem 1.5rem rgba(33, 37, 41, 0.08);
   }
 
   .navbar-nav {
-    gap: 0.25rem;
+    width: 100%;
+    gap: 0.35rem;
+  }
+
+  .navbar-nav .nav-item {
+    width: 100%;
   }
 
   .navbar-nav .nav-link {
-    padding: 0.75rem 1rem;
+    display: block;
+    width: 100%;
+    padding: 0.8rem 1rem;
     border-radius: var(--bs-border-radius);
+    font-weight: 600;
   }
 
   .navbar-nav .nav-link:hover,
