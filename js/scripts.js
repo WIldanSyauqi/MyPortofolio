@@ -2,6 +2,10 @@ document.addEventListener("DOMContentLoaded", () => {
 	const navbar = document.querySelector(".navbar");
 	const navbarMenu = document.querySelector("#navbarSupportedContent");
 	const navbarToggle = document.querySelector(".navbar-toggler");
+	const navLinks = [...document.querySelectorAll(".navbar .nav-link")];
+	const pageSections = navLinks
+		.map((navLink) => document.querySelector(navLink.getAttribute("href")))
+		.filter(Boolean);
 
 	if (!navbar || !navbarMenu) {
 		return;
@@ -11,12 +15,45 @@ document.addEventListener("DOMContentLoaded", () => {
 		navbar.classList.toggle("navbar-scrolled", window.scrollY > 10);
 	};
 
+	const updateActiveSection = () => {
+		const sectionOffset = navbar.offsetHeight + 120;
+		let visibleSection = pageSections[0];
+		const isAtPageBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2;
+
+		pageSections.forEach((section) => {
+			if (section.getBoundingClientRect().top <= sectionOffset) {
+				visibleSection = section;
+			}
+		});
+
+		if (isAtPageBottom) {
+			visibleSection = pageSections[pageSections.length - 1];
+		}
+
+		if (!visibleSection) {
+			return;
+		}
+
+		const sectionHash = `#${visibleSection.id}`;
+		if (window.location.hash !== sectionHash) {
+			history.replaceState(null, "", sectionHash);
+		}
+
+		navLinks.forEach((navLink) => {
+			const isActive = navLink.getAttribute("href") === sectionHash;
+			navLink.classList.toggle("active", isActive);
+			navLink.toggleAttribute("aria-current", isActive);
+		});
+	};
+
 	updateNavbar();
+	updateActiveSection();
 	let previousScrollY = window.scrollY;
 	let scrollTicking = false;
 
 	const updateNavbarOnScroll = () => {
 		updateNavbar();
+		updateActiveSection();
 
 		if (window.innerWidth < 992) {
 			navbar.classList.remove("navbar-hidden");
@@ -45,6 +82,8 @@ document.addEventListener("DOMContentLoaded", () => {
 		}
 	}, { passive: true });
 
+	window.addEventListener("hashchange", updateActiveSection);
+
 	navbarToggle?.addEventListener("click", (event) => {
 		event.stopPropagation();
 	});
@@ -60,8 +99,9 @@ document.addEventListener("DOMContentLoaded", () => {
 		}
 	});
 
-	document.querySelectorAll(".navbar .nav-link").forEach((navLink) => {
+	navLinks.forEach((navLink) => {
 		navLink.addEventListener("click", () => {
+			requestAnimationFrame(updateActiveSection);
 			if (window.innerWidth < 992) {
 				bootstrap.Collapse.getOrCreateInstance(navbarMenu).hide();
 			}
