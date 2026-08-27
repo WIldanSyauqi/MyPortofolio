@@ -104,6 +104,17 @@
 }
 
 @media (max-width: 991.98px) {
+  .navbar {
+    position: sticky;
+    top: 0;
+    z-index: 1030;
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
+  }
+
+  .navbar-hidden {
+    transform: translateY(-100%);
+  }
+
   .navbar > .container {
     align-items: center;
   }

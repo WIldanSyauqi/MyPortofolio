@@ -10,7 +10,37 @@ document.addEventListener("DOMContentLoaded", () => {
 	};
 
 	updateNavbar();
-	window.addEventListener("scroll", updateNavbar, { passive: true });
+	let previousScrollY = window.scrollY;
+	let scrollTicking = false;
+
+	const updateNavbarOnScroll = () => {
+		updateNavbar();
+
+		if (window.innerWidth < 992) {
+			const currentScrollY = window.scrollY;
+			const isScrollingDown = currentScrollY > previousScrollY;
+
+			if (isScrollingDown && currentScrollY > navbar.offsetHeight) {
+				navbar.classList.add("navbar-hidden");
+				if (navbarMenu?.classList.contains("show")) {
+					bootstrap.Collapse.getOrCreateInstance(navbarMenu).hide();
+				}
+			} else if (!isScrollingDown) {
+				navbar.classList.remove("navbar-hidden");
+			}
+
+			previousScrollY = currentScrollY;
+		}
+
+		scrollTicking = false;
+	};
+
+	window.addEventListener("scroll", () => {
+		if (!scrollTicking) {
+			window.requestAnimationFrame(updateNavbarOnScroll);
+			scrollTicking = true;
+		}
+	}, { passive: true });
 
 	const navbarMenu = document.querySelector("#navbarSupportedContent");
 	document.querySelectorAll(".navbar .nav-link").forEach((navLink) => {
