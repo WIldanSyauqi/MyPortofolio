@@ -12,6 +12,15 @@ document.addEventListener("DOMContentLoaded", () => {
 	updateNavbar();
 	window.addEventListener("scroll", updateNavbar, { passive: true });
 
+	const navbarMenu = document.querySelector("#navbarSupportedContent");
+	document.querySelectorAll(".navbar .nav-link").forEach((navLink) => {
+		navLink.addEventListener("click", () => {
+			if (window.innerWidth < 992 && navbarMenu) {
+				bootstrap.Collapse.getOrCreateInstance(navbarMenu).hide();
+			}
+		});
+	});
+
 	document.querySelectorAll(".social-links a").forEach((socialLink) => {
 		socialLink.addEventListener("click", () => {
 			socialLink.classList.remove("social-link-clicked");
