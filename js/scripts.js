@@ -75,4 +75,20 @@ document.addEventListener("DOMContentLoaded", () => {
 			socialLink.classList.add("social-link-clicked");
 		});
 	});
+
+	document.querySelectorAll(".bi-download.me-2").forEach((downloadIcon) => {
+		downloadIcon.addEventListener("click", () => {
+			downloadIcon.classList.remove("download-icon-clicked");
+			void downloadIcon.offsetWidth;
+			downloadIcon.classList.add("download-icon-clicked");
+		});
+	});
+
+	document.querySelectorAll(".resume-download").forEach((downloadButton) => {
+		downloadButton.addEventListener("click", () => {
+			downloadButton.classList.remove("resume-download-clicked");
+			void downloadButton.offsetWidth;
+			downloadButton.classList.add("resume-download-clicked");
+		});
+	});
 });

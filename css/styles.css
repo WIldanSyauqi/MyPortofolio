@@ -103,6 +103,38 @@
   }
 }
 
+  .bi-download.me-2.download-icon-clicked {
+    animation: download-icon-click 0.5s ease;
+  }
+
+  .resume-download.resume-download-clicked {
+    animation: resume-download-click 0.45s ease;
+  }
+
+  @keyframes download-icon-click {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    45% {
+      transform: translateY(0.25rem) scale(1.15);
+    }
+    75% {
+      transform: translateY(-0.1rem) scale(1.05);
+    }
+  }
+
+  @keyframes resume-download-click {
+    0%, 100% {
+      transform: scale(1);
+    }
+    45% {
+      transform: scale(0.96);
+    }
+    75% {
+      transform: scale(1.03);
+    }
+  }
+
 @media (min-width: 992px) {
   .navbar {
     transition: padding 0.35s ease, box-shadow 0.35s ease, background-color 0.35s ease;
@@ -474,6 +506,14 @@ svg {
 
 .education-card .bg-white {
   padding: 1rem !important;
+}
+
+section#education.bg-light {
+  background: linear-gradient(135deg, #eef8f4 0%, #f7fbfa 100%) !important;
+}
+
+section#skills.bg-light {
+  background: linear-gradient(135deg, #eef6fb 0%, #f8fbfd 100%) !important;
 }
 
 table {
@@ -4042,6 +4082,7 @@ textarea.form-control-lg {
 .social-links a:focus-visible {
   filter: brightness(1.15);
   transform: translateY(-0.3rem) scale(1.12);
+  animation: social-link-hover 0.45s ease;
 }
 .social-links a.social-link-clicked {
   animation: social-link-click 0.45s ease;
@@ -4067,9 +4108,22 @@ textarea.form-control-lg {
     transform: scale(1.15) rotate(5deg);
   }
 }
+@keyframes social-link-hover {
+  0% {
+    transform: translateY(0) scale(1);
+  }
+  60% {
+    transform: translateY(-0.4rem) scale(1.16);
+  }
+  100% {
+    transform: translateY(-0.3rem) scale(1.12);
+  }
+}
 @media (prefers-reduced-motion: reduce) {
   .social-links a,
-  .social-links a.social-link-clicked {
+  .social-links a.social-link-clicked,
+  .social-links a:hover,
+  .social-links a:focus-visible {
     animation: none;
     transition: none;
   }
