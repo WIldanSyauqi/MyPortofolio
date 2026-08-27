@@ -1,7 +1,9 @@
 document.addEventListener("DOMContentLoaded", () => {
 	const navbar = document.querySelector(".navbar");
+	const navbarMenu = document.querySelector("#navbarSupportedContent");
+	const navbarToggle = document.querySelector(".navbar-toggler");
 
-	if (!navbar) {
+	if (!navbar || !navbarMenu) {
 		return;
 	}
 
@@ -18,12 +20,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 		if (window.innerWidth < 992) {
 			navbar.classList.remove("navbar-hidden");
-			if (navbarMenu?.classList.contains("show")) {
-				const collapse = bootstrap.Collapse.getOrCreateInstance(navbarMenu);
-				if (window.scrollY > navbar.offsetHeight + 20) {
-					collapse.hide();
-				}
-			}
 			previousScrollY = window.scrollY;
 			scrollTicking = false;
 			return;
@@ -49,10 +45,24 @@ document.addEventListener("DOMContentLoaded", () => {
 		}
 	}, { passive: true });
 
-	const navbarMenu = document.querySelector("#navbarSupportedContent");
+	navbarToggle?.addEventListener("click", (event) => {
+		event.stopPropagation();
+	});
+
+	document.addEventListener("click", (event) => {
+		if (window.innerWidth >= 992 || !navbarMenu.classList.contains("show")) {
+			return;
+		}
+
+		const clickedInsideNavbar = navbar.contains(event.target);
+		if (!clickedInsideNavbar) {
+			bootstrap.Collapse.getOrCreateInstance(navbarMenu).hide();
+		}
+	});
+
 	document.querySelectorAll(".navbar .nav-link").forEach((navLink) => {
 		navLink.addEventListener("click", () => {
-			if (window.innerWidth < 992 && navbarMenu) {
+			if (window.innerWidth < 992) {
 				bootstrap.Collapse.getOrCreateInstance(navbarMenu).hide();
 			}
 		});
