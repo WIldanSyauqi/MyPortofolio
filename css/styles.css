@@ -91,6 +91,18 @@
   }
 }
 
+@media (max-width: 575.98px) {
+  .resume-heading {
+    align-items: stretch !important;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .resume-download {
+    width: 100%;
+  }
+}
+
 body {
   margin: 0;
   font-family: var(--bs-body-font-family);
