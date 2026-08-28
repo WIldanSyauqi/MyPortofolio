@@ -137,6 +137,10 @@
 
 @media (min-width: 992px) {
   .navbar {
+    position: sticky;
+    top: 0;
+    z-index: 1030;
+    background-color: rgba(255, 255, 255, 0.96) !important;
     transition: padding 0.35s ease, box-shadow 0.35s ease, background-color 0.35s ease;
   }
 
@@ -508,12 +512,10 @@ svg {
   padding: 1rem !important;
 }
 
-section#education.bg-light {
-  background: linear-gradient(135deg, #eef8f4 0%, #f7fbfa 100%) !important;
-}
-
-section#skills.bg-light {
-  background: linear-gradient(135deg, #eef6fb 0%, #f8fbfd 100%) !important;
+section#education,
+section#skills {
+  background: transparent !important;
+  background-color: transparent !important;
 }
 
 table {
@@ -12067,5 +12069,41 @@ html {
   .profile .dots-4 {
     width: 1.5vw;
     left: -2vw;
+  }
+}
+/* Card Container - 3 cards per row */
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.card-item {
+  flex: 0 0 calc(33.333% - 1rem);
+  max-width: calc(33.333% - 1rem);
+}
+
+.card-item .card {
+  border-radius: 0.75rem;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-item .card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.15) !important;
+}
+
+@media (max-width: 991.98px) {
+  .card-item {
+    flex: 0 0 calc(50% - 0.75rem);
+    max-width: calc(50% - 0.75rem);
+  }
+}
+
+@media (max-width: 575.98px) {
+  .card-item {
+    flex: 0 0 100%;
+    max-width: 100%;
   }
 }
