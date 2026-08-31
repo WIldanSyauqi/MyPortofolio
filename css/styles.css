@@ -490,6 +490,10 @@ svg {
   object-fit: contain;
 }
 
+.certification-content {
+  padding-bottom: 1rem !important;
+}
+
 @media (max-width: 767.98px) {
   .certification-img {
     width: 90%;
